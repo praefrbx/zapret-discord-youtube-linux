@@ -185,6 +185,14 @@ else
     exit 1
 fi
 
+# Добавление ссылки в list-general.txt
+add_link() {
+    LISTS_DIR="$HOME_DIR_PATH/zapret-latest/lists"      # Директория с листами для скрипта
+    echo ""
+    read -p "Введите ссылку для добавления: " link
+    echo $link >> $LISTS_DIR/list_general.txt 
+}
+
 # Основное меню управления
 show_menu() {
     check_service_status
@@ -339,6 +347,7 @@ show_usage() {
     echo "    $(basename "$0")         Run interactive service manager"
     echo
     echo "Commands:"
+    echo "    -L --link          Add a link to bypass list"
     echo "       --status        Show service status"
     echo "    -i --install       Install and start service"
     echo "    -R --remove        Remove service"
@@ -363,6 +372,7 @@ RESTART_SERVICE=true
 
 while [[ $# -gt 0 ]]; do
     case $1 in
+        -L) 
         --status) check_service_status
             exit 0
             ;;
